@@ -1,0 +1,88 @@
+
+import { useState, useEffect, useRef } from 'react';
+import { toast } from '@/hooks/use-toast';
+import { AutomationTrigger } from '@/types/automation';
+
+export const useSpeechRecognition = (automationTriggers: AutomationTrigger[], onTriggerAutomation: (trigger: AutomationTrigger, subTrigger?: any) => void) => {
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [lastCommand, setLastCommand] = useState('');
+  const [recognition, setRecognition] = useState<any>(null);
+
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      const recognitionInstance = new SpeechRecognition();
+      
+      recognitionInstance.continuous = true;
+      recognitionInstance.interimResults = true;
+      recognitionInstance.lang = 'en-US';
+
+      recognitionInstance.onresult = (event: any) => {
+        const current = event.resultIndex;
+        const transcriptResult = event.results[current][0].transcript;
+        setTranscript(transcriptResult);
+
+        if (event.results[current].isFinal) {
+          processCommand(transcriptResult.toLowerCase());
+        }
+      };
+
+      recognitionInstance.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        toast({
+          title: "Speech Recognition Error",
+          description: `Error: ${event.error}`,
+          variant: "destructive",
+        });
+      };
+
+      recognitionInstance.onend = () => {
+        setIsListening(false);
+      };
+
+      setRecognition(recognitionInstance);
+    } else {
+      toast({
+        title: "Speech Recognition Not Supported",
+        description: "Your browser doesn't support speech recognition.",
+        variant: "destructive",
+      });
+    }
+
+    return () => {
+      if (recognition) {
+        recognition.stop();
+      }
+    };
+  }, []);
+
+  const processCommand = (command: string) => {
+    console.log('Processing command:', command);
+    
+    const matchedTrigger = automationTriggers.find(trigger => 
+      trigger.keywords.some(keyword => command.includes(keyword))
+    );
+
+    if (matchedTrigger) {
+      setLastCommand(command);
+      onTriggerAutomation(matchedTrigger);
+    } else {
+      toast({
+        title: "Command Not Recognized",
+        description: `Heard: "${command}" - try one of the preset commands`,
+        variant: "destructive",
+      });
+    }
+  };
+
+  return {
+    isListening,
+    setIsListening,
+    transcript,
+    setTranscript,
+    lastCommand,
+    recognition
+  };
+};
