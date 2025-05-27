@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "@/hooks/use-toast";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
-import { AutomationTrigger } from "@/types/automation";
+import { AutomationTrigger, SubTrigger } from "@/types/automation";
 import Header from "@/components/Header";
 import VoiceControl from "@/components/VoiceControl";
 import AutomationTriggers from "@/components/AutomationTriggers";
@@ -26,7 +26,8 @@ const Index = () => {
     {
       id: "studio-mode",
       name: "Studio Mode",
-      description: "Opens FL Studio and configures audio settings",
+      description:
+        "Launch Drum session - Opens FL Studio, EZD3 & configures audio settings",
       color: "from-indigo-500 to-purple-500",
       keywords: ["studio mode", "fl studio", "music production"],
     },
@@ -62,7 +63,7 @@ const Index = () => {
 
   const triggerAutomation = async (
     trigger: AutomationTrigger,
-    subTrigger?: any
+    subTrigger?: SubTrigger
   ) => {
     const triggerName = subTrigger
       ? `${trigger.name} - ${subTrigger.name}`
