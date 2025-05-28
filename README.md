@@ -1,30 +1,18 @@
 # 🎻 Command Orchestra 🪄
 
-A voice-controlled automation system that orchestrates various productivity workflows and tools through speech recognition and manual triggers.
+Welcome to your **AI Agent Automation Playground**!
 
-<img src="public/assets/images/Frontend-28-5-2025.png" alt="Command Orchestra Frontend Screenshot" width="500">
+## 🧬 Vision
 
-## Backend Repository
-
-🔗 **Backend**: [Command Orchestra Backend](https://github.com/MiMa6/command-orchestra) - The Python backend that powers the automation system
-
-## API Integration
-
-📖 **API Documentation**: [API Integration Guide](./API_INTEGRATION.md) - Complete guide for integrating with the backend API, including endpoints, error handling, and troubleshooting
+Build your own living operating system: command your AI Agent with your voice (or text), and watch it orchestrate workflows, open apps, and automate your creative rituals. Speech-2-Action! 🗣️✨
 
 ## Overview
 
-Command Orchestra is a modern web application that allows you to control different "modes" of your digital workspace through voice commands or manual triggers. Each mode is designed to set up specific environments for different types of work or activities.
+<img src="public/assets/images/Frontend-28-5-2025.png" alt="Command Orchestra Frontend Screenshot" width="500">
 
-### 🎨 Modern UI
+Command Orchestra is a modern web application that allows you to control different "modes" of your digital workspace through voice commands (TODO) or manual triggers. Each mode is designed to set up specific environments for different types of work or activities.
 
-- Beautiful gradient backgrounds
-- Responsive design
-- Real-time status indicators
-- Interactive automation cards
-- Toast notifications for feedback
-
-## Technology Stack
+## Frontend Technology Stack
 
 This project is built with modern web technologies:
 
@@ -37,6 +25,15 @@ This project is built with modern web technologies:
 - **React Query** - Server state management
 - **React Router** - Client-side routing
 - **Web Speech API** - Voice recognition
+
+
+## Backend Repository
+
+🔗 **Backend**: [Command Orchestra Backend](https://github.com/MiMa6/command-orchestra) - The Python backend that powers the automation system
+
+## API Integration
+
+📖 **API Documentation**: [API Integration Guide](./API_INTEGRATION.md) - Complete guide for integrating with the backend API, including endpoints, error handling, and troubleshooting
 
 ## Getting Started
 
@@ -68,25 +65,7 @@ npm run dev
 
 4. Open your browser and navigate to `http://localhost:8083`
 
-### Building for Production
-
-```sh
-npm run build
-```
-
-The built files will be in the `dist` directory.
-
-## Usage
-
-1. **Voice Commands**: Click the microphone button to start voice recognition, then speak your commands naturally (e.g., "start focus mode", "gym notes running")
-
-2. **Manual Triggers**: Click on any automation card to trigger it manually
-
-3. **Sub-modes**: Some automations like "GYM Notes" have sub-triggers for specific activities
-
-## Development
-
-### Project Structure
+## 📦 Project Structure
 
 ```
 src/
@@ -97,18 +76,3 @@ src/
 ├── types/              # TypeScript type definitions
 └── main.tsx           # Application entry point
 ```
-
-### Key Components
-
-- `VoiceControl` - Handles speech recognition and voice commands
-- `AutomationTriggers` - Displays and manages automation cards
-- `Header` - Application title and branding
-- `StatusFooter` - Shows current system status
-
-### Adding New Automations
-
-To add a new automation mode:
-
-1. Add the trigger definition to `automationTriggers` array in `src/pages/Index.tsx`
-2. Implement the backend logic for the automation (if needed)
-3. Add appropriate keywords for voice recognition
