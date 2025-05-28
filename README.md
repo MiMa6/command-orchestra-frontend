@@ -2,58 +2,15 @@
 
 A voice-controlled automation system that orchestrates various productivity workflows and tools through speech recognition and manual triggers.
 
+<img src="public/assets/images/Frontend-28-5-2025.png" alt="Command Orchestra Frontend Screenshot" width="500">
+
+## Backend Repository
+
+🔗 **Backend**: [Command Orchestra Backend](https://github.com/MiMa6/command-orchestra) - The Python backend that powers the automation system
+
 ## Overview
 
 Command Orchestra is a modern web application that allows you to control different "modes" of your digital workspace through voice commands or manual triggers. Each mode is designed to set up specific environments for different types of work or activities.
-
-## Features
-
-### 🎤 Voice Control
-
-- Real-time speech recognition
-- Natural language command processing
-- Visual feedback for voice commands
-- Transcript display with command history
-
-### 🎯 Automation Modes
-
-**GYM Notes** - Fitness tracking and workout logging
-
-- Running
-- Cycling
-- Mobility
-- Gym workout
-
-**Studio Mode** - Music production environment
-
-- Opens FL Studio
-- Configure EZdrummer 3 settings
-- Configures audio settings
-
-**Launch Ritual Mode** - Development environment
-
-- Opens Obsidian for note-taking
-- Launches Cursor IDE
-- Activates AI agents
-- Sets up development workflow
-
-**Explorer Mode** - Research and browsing setup
-
-- Opens browser research tabs
-- Configures voice logging
-- Sets up research environment
-
-**Focus Mode** - Deep work environment
-
-- Activates Do Not Disturb
-- Plays deep focus playlist
-- Minimal distraction setup
-
-**Archive Mission** - Session cleanup
-
-- Backs up notes and work
-- Closes applications
-- Resets workspace to clean state
 
 ### 🎨 Modern UI
 
