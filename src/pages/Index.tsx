@@ -6,6 +6,11 @@ import Header from "@/components/Header";
 import VoiceControl from "@/components/VoiceControl";
 import AutomationTriggers from "@/components/AutomationTriggers";
 import StatusFooter from "@/components/StatusFooter";
+import {
+  triggerWorkoutAutomation,
+  triggerStudioAutomation,
+  triggerGenericAutomation,
+} from "@/services/api";
 
 const Index = () => {
   // Predefined automation triggers
@@ -76,20 +81,70 @@ const Index = () => {
     });
 
     try {
-      await fetch("/api/trigger-automation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          triggerId: subTrigger ? `${trigger.id}-${subTrigger.id}` : trigger.id,
-          triggerName: triggerName,
-          timestamp: new Date().toISOString(),
-          command: "manual trigger",
-        }),
-      });
+      // Handle gym notes (workout automations)
+      if (trigger.id === "gym-notes" && subTrigger) {
+        const workoutType = subTrigger.id as
+          | "running"
+          | "cycling"
+          | "mobility"
+          | "gym";
+        await triggerWorkoutAutomation(workoutType);
+
+        toast({
+          title: "✅ Workout Automation Complete",
+          description: `${subTrigger.name} note created successfully!`,
+          variant: "default",
+        });
+        return;
+      }
+
+      // Handle studio mode
+      if (trigger.id === "studio-mode") {
+        await triggerStudioAutomation("open_session");
+
+        toast({
+          title: "🎵 Studio Mode Activated",
+          description: "FL Studio session opened successfully!",
+          variant: "default",
+        });
+        return;
+      }
+
+      // Handle other automations as generic voice commands
+      const commandMap: Record<string, string> = {
+        "ritual-mode": "launch ritual mode",
+        "explorer-mode": "start explorer mode",
+        "focus-mode": "activate focus mode",
+        "archive-mission": "archive mission",
+      };
+
+      const command = commandMap[trigger.id];
+      if (command) {
+        await triggerGenericAutomation(trigger.id, triggerName, command);
+
+        toast({
+          title: "🤖 Command Processed",
+          description: `${triggerName} command sent to AI orchestrator!`,
+          variant: "default",
+        });
+      } else {
+        // Fallback for unmapped triggers
+        await triggerGenericAutomation(trigger.id, triggerName);
+
+        toast({
+          title: "🎯 Generic Trigger",
+          description: `${triggerName} processed as voice command!`,
+          variant: "default",
+        });
+      }
     } catch (error) {
-      console.log("Backend trigger simulation:", triggerName);
+      console.error("Backend automation error:", error);
+
+      toast({
+        title: "❌ Automation Failed",
+        description: `Failed to trigger ${triggerName}. Check backend connection.`,
+        variant: "destructive",
+      });
     }
   };
 
