@@ -1,22 +1,27 @@
+import { useState, useEffect, useRef } from "react";
+import { toast } from "@/hooks/use-toast";
+import { AutomationTrigger } from "@/types/automation";
+import { processVoiceCommand } from "@/services/api";
 
-import { useState, useEffect, useRef } from 'react';
-import { toast } from '@/hooks/use-toast';
-import { AutomationTrigger } from '@/types/automation';
-
-export const useSpeechRecognition = (automationTriggers: AutomationTrigger[], onTriggerAutomation: (trigger: AutomationTrigger, subTrigger?: any) => void) => {
+export const useSpeechRecognition = (
+  automationTriggers: AutomationTrigger[],
+  onTriggerAutomation: (trigger: AutomationTrigger, subTrigger?: any) => void
+) => {
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
-  const [lastCommand, setLastCommand] = useState('');
+  const [transcript, setTranscript] = useState("");
+  const [lastCommand, setLastCommand] = useState("");
   const [recognition, setRecognition] = useState<any>(null);
 
   useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+      const SpeechRecognition =
+        (window as any).webkitSpeechRecognition ||
+        (window as any).SpeechRecognition;
       const recognitionInstance = new SpeechRecognition();
-      
+
       recognitionInstance.continuous = true;
       recognitionInstance.interimResults = true;
-      recognitionInstance.lang = 'en-US';
+      recognitionInstance.lang = "en-US";
 
       recognitionInstance.onresult = (event: any) => {
         const current = event.resultIndex;
@@ -29,7 +34,7 @@ export const useSpeechRecognition = (automationTriggers: AutomationTrigger[], on
       };
 
       recognitionInstance.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
+        console.error("Speech recognition error:", event.error);
         setIsListening(false);
         toast({
           title: "Speech Recognition Error",
@@ -58,22 +63,36 @@ export const useSpeechRecognition = (automationTriggers: AutomationTrigger[], on
     };
   }, []);
 
-  const processCommand = (command: string) => {
-    console.log('Processing command:', command);
-    
-    const matchedTrigger = automationTriggers.find(trigger => 
-      trigger.keywords.some(keyword => command.includes(keyword))
+  const processCommand = async (command: string) => {
+    console.log("Processing command:", command);
+    setLastCommand(command);
+
+    const matchedTrigger = automationTriggers.find((trigger) =>
+      trigger.keywords.some((keyword) => command.includes(keyword))
     );
 
     if (matchedTrigger) {
-      setLastCommand(command);
+      // Trigger local automation
       onTriggerAutomation(matchedTrigger);
     } else {
-      toast({
-        title: "Command Not Recognized",
-        description: `Heard: "${command}" - try one of the preset commands`,
-        variant: "destructive",
-      });
+      // Send unmatched commands to backend for AI processing
+      try {
+        await processVoiceCommand(command, true); // Use AI agent for unmatched commands
+
+        toast({
+          title: "🤖 Voice Command Processed",
+          description: `AI is processing: "${command}"`,
+          variant: "default",
+        });
+      } catch (error) {
+        console.error("Voice command API error:", error);
+
+        toast({
+          title: "Command Not Recognized",
+          description: `Heard: "${command}" - try one of the preset commands or check backend connection`,
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -83,6 +102,6 @@ export const useSpeechRecognition = (automationTriggers: AutomationTrigger[], on
     transcript,
     setTranscript,
     lastCommand,
-    recognition
+    recognition,
   };
 };
