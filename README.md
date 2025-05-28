@@ -8,6 +8,10 @@ A voice-controlled automation system that orchestrates various productivity work
 
 🔗 **Backend**: [Command Orchestra Backend](https://github.com/MiMa6/command-orchestra) - The Python backend that powers the automation system
 
+## API Integration
+
+📖 **API Documentation**: [API Integration Guide](./API_INTEGRATION.md) - Complete guide for integrating with the backend API, including endpoints, error handling, and troubleshooting
+
 ## Overview
 
 Command Orchestra is a modern web application that allows you to control different "modes" of your digital workspace through voice commands or manual triggers. Each mode is designed to set up specific environments for different types of work or activities.

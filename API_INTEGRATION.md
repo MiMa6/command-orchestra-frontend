@@ -40,12 +40,16 @@ VITE_API_BASE_URL=http://0.0.0.0:8000/api/v1
 
 ### 3. Voice Commands (`/voice-command`)
 
+> **TODO**: Voice command integration is not yet fully implemented in the frontend
+
 **Voice Input → Backend Mapping:**
 
 - Recognized commands trigger local automations
 - Unrecognized commands → `POST /api/v1/voice-command` with AI agent processing
 
 ### 4. Generic Automations (Voice Command Fallback)
+
+> **TODO**: Voice command fallback for generic automations is not yet implemented
 
 **Unmapped Buttons → Backend Mapping:**
 
@@ -72,7 +76,7 @@ triggerDailyNoteAutomation(noteType: 'today' | 'tomorrow', date?: string): Promi
 triggerStudioAutomation(action: 'open_session' | 'switch_audio' | 'open_project'): Promise<ApiResponse>
 
 // Voice command processing
-processVoiceCommand(command: string, useAgent?: boolean): Promise<ApiResponse>
+processVoiceCommand(command: string, useAgent?: boolean): Promise<ApiResponse> // TODO: Not yet implemented
 
 // List available automations
 getAvailableAutomations(): Promise<AutomationListResponse>
@@ -128,6 +132,8 @@ graph TD
 ```
 
 ## Voice Command Flow
+
+> **TODO**: Voice command flow is not yet fully implemented in the frontend
 
 ```mermaid
 graph TD
