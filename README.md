@@ -1,4 +1,4 @@
-# Command Orchestra Frontend
+# 🎻 Command Orchestra 🪄
 
 A voice-controlled automation system that orchestrates various productivity workflows and tools through speech recognition and manual triggers.
 
