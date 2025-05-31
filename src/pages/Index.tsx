@@ -238,6 +238,11 @@ const Index = () => {
     setTranscript,
     lastCommand,
     recognition,
+    isConversationMode,
+    toggleMode,
+    isSpeaking,
+    conversationHistory,
+    speak,
   } = useSpeechRecognition(automationTriggers, triggerAutomation);
 
   return (
@@ -259,6 +264,10 @@ const Index = () => {
           recognition={recognition}
           setIsListening={setIsListening}
           setTranscript={setTranscript}
+          isConversationMode={isConversationMode}
+          toggleMode={toggleMode}
+          isSpeaking={isSpeaking}
+          conversationHistory={conversationHistory}
         />
 
         {/* Main Content Grid */}
