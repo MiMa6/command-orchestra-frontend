@@ -356,7 +356,8 @@ const VoiceControl: React.FC<VoiceControlProps> = ({
               <div className="flex items-center gap-2 mb-3">
                 <Brain className="w-5 h-5 text-purple-400 animate-pulse" />
                 <p className="text-sm font-medium text-purple-300">
-                  AI Processing: (NOT YET IMPLEMENTED COMMANDS STILL GO TO BACKEND)
+                  AI Processing: (NOT YET IMPLEMENTED COMMANDS STILL GO TO
+                  BACKEND)
                 </p>
               </div>
               <p className="text-xl text-white font-medium leading-relaxed">
@@ -406,38 +407,6 @@ const VoiceControl: React.FC<VoiceControlProps> = ({
           )}
 
           <div className="flex justify-center items-center gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <div
-                className={`w-3 h-3 rounded-full relative ${
-                  isSpeaking
-                    ? "bg-yellow-400 animate-pulse"
-                    : isListening
-                    ? "bg-purple-400 animate-pulse"
-                    : "bg-slate-500"
-                }`}
-              >
-                {(isListening || isSpeaking) && (
-                  <div
-                    className={`absolute inset-0 rounded-full animate-ping ${
-                      isSpeaking ? "bg-yellow-400" : "bg-purple-400"
-                    }`}
-                  ></div>
-                )}
-              </div>
-              <span className="text-xs text-gray-300">
-                {isSpeaking
-                  ? "AI Speaking"
-                  : isListening
-                  ? "Listening"
-                  : "Ready"}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-purple-400"></div>
-              <span className="text-xs text-gray-300">Command Mode</span>
-            </div>
-
             {isListening && (
               <div className="flex items-center gap-1">
                 <span className="text-xs text-purple-300">Audio:</span>

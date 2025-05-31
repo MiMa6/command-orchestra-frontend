@@ -286,30 +286,6 @@ const EnhancedAutomationCard: React.FC<EnhancedAutomationCardProps> = ({
             >
               {trigger.description}
             </CardDescription>
-
-            {/* Keywords as animated tags */}
-            {trigger.keywords && trigger.keywords.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-2">
-                {trigger.keywords.slice(0, 3).map((keyword, i) => (
-                  <Badge
-                    key={keyword}
-                    className={`
-                      text-xs bg-purple-500/20 text-purple-300 border-purple-500/30
-                      transition-all duration-300 transform
-                      ${isHovered ? "scale-105 bg-purple-500/30" : ""}
-                    `}
-                    style={{
-                      animationDelay: `${i * 100}ms`,
-                      animation: isHovered
-                        ? "fadeInUp 0.3s ease-out forwards"
-                        : "none",
-                    }}
-                  >
-                    {keyword}
-                  </Badge>
-                ))}
-              </div>
-            )}
           </CardHeader>
 
           <CardContent className="pt-2">
