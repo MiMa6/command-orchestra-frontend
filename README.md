@@ -10,8 +10,6 @@ Build your own living operating system: command your AI Agent with your voice (o
 
 <img src="public/assets/images/Frontend-31-5-2025.png" alt="Command Orchestra Frontend Screenshot" width="500">
 
-Command Orchestra is a modern web application that allows you to control different "modes" of your digital workspace through voice commands (TODO) or manual triggers. Each mode is designed to set up specific environments for different types of work or activities.
-
 ## Frontend Technology Stack
 
 This project is built with modern web technologies:
