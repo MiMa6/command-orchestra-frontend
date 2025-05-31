@@ -118,3 +118,9 @@ Desktop.ini
 # Lock files (choose one approach)
 # yarn.lock
 # pnpm-lock.yaml
+
+# Other
+.cursor
+
+# Development/Brainstorming
+brainstorm/
